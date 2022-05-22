@@ -21,6 +21,9 @@ public class Libreria
 	// Atributos
 	// ************************************************************************
 
+	
+	public ArrayList<Categoria> categoriasCambiar;
+	
 	/**
 	 * El arreglo con las categorías que hay en la librería
 	 */
@@ -79,6 +82,11 @@ public class Libreria
 	public ArrayList<Libro> darLibros()
 	{
 		return catalogo;
+	}
+	
+	public ArrayList<Categoria> darCategoriasCambiar()
+	{
+		return categoriasCambiar;
 	}
 
 	// ************************************************************************
@@ -263,7 +271,7 @@ public class Libreria
 		ArrayList <Libro> librosBorrar = new ArrayList <Libro>();
 		ArrayList <String> nomAutoresBorrables = new ArrayList<String>();
 		ArrayList <String> nomAutoresNoBorrables = new ArrayList<String>();
-		ArrayList<Libro> nuevoCatalogo = new ArrayList<Libro>();
+		ArrayList<Categoria> nuevoCatalogo = new ArrayList<Categoria>();
 		boolean borrar = true;
 		boolean actualizar = true;
 		int cantidad = 0;
@@ -314,12 +322,12 @@ public class Libreria
 					}
 					
 				}
-				if (borrar = false) {
-					nuevoCatalogo.add(libroCatalogo);
-				}
-				else {
+				if (borrar = true) {
+					nuevoCatalogo.add(libroCatalogo.darCategoria());
 					libroCatalogo = null;
+					//catalogo.remove(libroCatalogo);
 				}
+				
 				
 				
 			}
@@ -327,16 +335,22 @@ public class Libreria
 		}
 		//System.out.print("termino");
 		if (actualizar == true) {
-			actualizarCatalogo(nuevoCatalogo);   
+			actualizarCategorias(nuevoCatalogo);  
+			
+			
 			//System.out.print("Se actualiza");
 		}
+		
 		return cantidad;
 	}
 	
-	public void actualizarCatalogo(ArrayList<Libro> nuevoCatalogo) {
+	
+	
+	public void actualizarCategorias(ArrayList<Categoria> nuevoCatalogo) {
 		
-		catalogo = nuevoCatalogo;
+		categoriasCambiar = nuevoCatalogo;
 	}
+	
 	
 	
 	/**

@@ -233,6 +233,11 @@ public class InterfazLibreria extends JFrame
 			if (cantidad != 0) {
 				JOptionPane.showMessageDialog(this, "Se eliminaron " + cantidad + " libros", "Libros Borrados",
 						JOptionPane.INFORMATION_MESSAGE);
+				ArrayList<Categoria> categoriasAct = libreria.darCategoriasCambiar();
+				for (Categoria categorias: categoriasAct) {
+					cambiarCategoria(categorias);
+				}
+				
 			}
 			
 		}
@@ -241,6 +246,8 @@ public class InterfazLibreria extends JFrame
 					JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
+		//inicoi prueba:
+		
 		
 		// TODO Auto-generated method stub
 		
