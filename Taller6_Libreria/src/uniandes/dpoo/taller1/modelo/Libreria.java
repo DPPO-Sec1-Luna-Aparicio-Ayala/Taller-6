@@ -240,6 +240,102 @@ public class Libreria
 		return laNuevaCategoria;
 	}
 	
+	public ArrayList <String> nomAutores (){
+		
+		ArrayList <String> nomAutores = new ArrayList<String>() ;
+		 
+		for (int i = 0; i < catalogo.size(); i++)
+		{
+			String autor = catalogo.get(i).darAutor();
+			nomAutores.add(autor);
+		}
+		
+		return nomAutores;
+		
+	}
+	
+	public int eliminarLibros(String nombresAutores) throws Exception{
+		String[] listaNombres = nombresAutores.split(",");
+		ArrayList <String> nomAutores = nomAutores();
+		ArrayList <Libro> librosBorrar = new ArrayList <Libro>();
+		ArrayList <String> nomAutoresBorrables = new ArrayList<String>();
+		ArrayList <String> nomAutoresNoBorrables = new ArrayList<String>();
+		ArrayList<Libro> nuevoCatalogo = new ArrayList<Libro>();
+		boolean borrar = true;
+		boolean actualizar = true;
+		int cantidad = 0;
+		
+		for (String autor : listaNombres) {
+			if(nomAutores.contains(autor)) {
+				nomAutoresBorrables.add(autor);
+			}
+			else {
+				
+				nomAutoresNoBorrables.add(autor);
+				
+			}
+		}
+		
+		if (nomAutoresNoBorrables.size() != 0) {
+			String noBorrar = String.join(",", nomAutoresNoBorrables);
+			String siBorrar = String.join(",", nomAutoresBorrables);
+			cantidad = 0;
+			actualizar = false;
+			ArrayList <String> infoLibros = new ArrayList<String>();
+			for (Libro libroCatalogo : catalogo) {
+				for (String autorEliminar : nomAutoresBorrables) {
+					if (libroCatalogo.darAutor().equals(autorEliminar)) {
+						String info = libroCatalogo.darTitulo() + " " + libroCatalogo.darAutor()+ " " + libroCatalogo.darCategoria()+ " " + libroCatalogo.darCalificacion();  
+						infoLibros.add(info);
+					}
+				}
+				
+			}
+			String infoLibs = String.join(",", infoLibros);
+			throw new Exception ("Los nombres que no correspondian a autores son: " + noBorrar +
+					"\n Los nombres que si corresponidian a autores son: " + siBorrar +
+					"\n Y su información es: " + infoLibs);
+			
+		}
+		else {
+			System.out.print("borrando");
+			for (Libro libroCatalogo : catalogo) {
+				borrar = false;
+				
+				for (int i = 0; i < nomAutoresBorrables.size(); i++){
+					//System.out.print(libroCatalogo.darAutor() + nomAutoresBorrables.get(i));
+					if (libroCatalogo.darAutor().equals(nomAutoresBorrables.get(i))) {
+						//System.out.print("\n siglibro" + " " + cantidad);
+						borrar = true;
+						cantidad += 1;
+					}
+					
+				}
+				if (borrar = false) {
+					nuevoCatalogo.add(libroCatalogo);
+				}
+				else {
+					libroCatalogo = null;
+				}
+				
+				
+			}
+			
+		}
+		//System.out.print("termino");
+		if (actualizar == true) {
+			actualizarCatalogo(nuevoCatalogo);   
+			//System.out.print("Se actualiza");
+		}
+		return cantidad;
+	}
+	
+	public void actualizarCatalogo(ArrayList<Libro> nuevoCatalogo) {
+		
+		catalogo = nuevoCatalogo;
+	}
+	
+	
 	/**
 	 * Verifica si existe el archivo con el nombre indicado dentro de la carpeta
 	 * "data".
@@ -482,5 +578,7 @@ public class Libreria
 	public HashMap<Categoria,Integer> darNuevasCategorias(){
 		return nuevasCategorias;
 	}
+
+	
 
 }

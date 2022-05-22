@@ -225,6 +225,26 @@ public class InterfazLibreria extends JFrame
 			e.printStackTrace();
 		}
 	}
+	
+	public void eliminarLibros() {
+		try {
+			String nombresAutores = JOptionPane.showInputDialog(this, "Escriba el nombre de los autores, cuyos libros quiera eliminar, separados por comas", "ELiminar Libros");	
+			int cantidad = libreria.eliminarLibros(nombresAutores);
+			if (cantidad != 0) {
+				JOptionPane.showMessageDialog(this, "Se eliminaron " + cantidad + " libros", "Libros Borrados",
+						JOptionPane.INFORMATION_MESSAGE);
+			}
+			
+		}
+		catch (Exception e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error de autor",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		
+		// TODO Auto-generated method stub
+		
+	}
 
 	/**
 	 * Cambia el libro para el cual se debe mostrar la información en el panel
@@ -412,5 +432,7 @@ public class InterfazLibreria extends JFrame
 
 		new InterfazLibreria();
 	}
+
+	
 
 }
