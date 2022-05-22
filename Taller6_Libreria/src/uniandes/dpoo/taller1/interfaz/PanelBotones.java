@@ -39,6 +39,7 @@ public class PanelBotones extends JPanel implements ActionListener
 
 	private final static String AUTOR_VARIAS_CATEGORIAS = "HayAutorEnVariasCategorias";
 
+	private final static String RENOMBRAR_CATEGORIA = "RenombrarCategoria";
 	// ************************************************************************
 	// Atributos
 	// ************************************************************************
@@ -71,6 +72,7 @@ public class PanelBotones extends JPanel implements ActionListener
 		agregarBoton(CONTAR_SIN_PORTADA, "Buscar libro con titulo", "./data/iconos/libro.png");
 		agregarBoton(CATEGORIA_MEJOR, "Buscar libro con titulo", "./data/iconos/premio.png");
 		agregarBoton(AUTOR_VARIAS_CATEGORIAS, "Buscar libro con titulo", "./data/iconos/autor.png");
+		agregarBoton(RENOMBRAR_CATEGORIA,"Renombrar categorías","./data/iconos/menu.png");
 	}
 
 	// ************************************************************************
@@ -144,6 +146,10 @@ public class PanelBotones extends JPanel implements ActionListener
 		else if (AUTOR_VARIAS_CATEGORIAS.equals(comando))
 		{
 			ventana.hayAutorEnVariasCategorias();
+		}
+		else if (RENOMBRAR_CATEGORIA.equals(comando))
+		{
+			ventana.renombrarCat();
 		}
 	}
 

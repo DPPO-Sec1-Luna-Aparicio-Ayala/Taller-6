@@ -106,6 +106,10 @@ public class Libro
 	{
 		return categoria;
 	}
+	
+	public void setCategoria(Categoria nuevaCat) {
+		this.categoria=nuevaCat;
+	}
 
 	/**
 	 * Consulta la imagen con la portada del libro. Si el libro no tiene una portada

@@ -110,7 +110,6 @@ public class Libreria
 
 			// Crear una nueva categorÃ­a y agregarla a la lista
 			listaCategorias.add(new Categoria(nombreCat, esFiccion));
-
 			linea = br.readLine();
 		}
 
@@ -213,6 +212,34 @@ public class Libreria
 		return laCategoria;
 	}
 
+	/** Cambia el nombre de una categoría ya existente
+	 * @para, Nombrecat
+	 */
+	
+	public Categoria renombrarCategoría(String nomCatActual, String nomCatNueva) throws Exception{
+		if(buscarCategoria(nomCatNueva)!=null) {
+			
+			throw new Exception ("Hay una categoría que ya tiene ese nombre");
+		}
+		if(buscarCategoria(nomCatActual)==null) {
+			throw new Exception ("La categoría que desea cambiar no existe");
+		}
+		Categoria laNuevaCategoria = null;
+		if(buscarCategoria(nomCatActual)!=null) {
+			Categoria actual = buscarCategoria(nomCatActual);
+			if (buscarCategoria(nomCatNueva)==null) {
+				categorias.remove(actual);
+				categorias.add(new Categoria(nomCatNueva, false));
+				for (Libro libro:catalogo) {
+					if(libro.darCategoria().equals(actual)){
+						libro.setCategoria(new Categoria(nomCatNueva, false));
+					}
+				}
+			}
+		}
+		return laNuevaCategoria;
+	}
+	
 	/**
 	 * Verifica si existe el archivo con el nombre indicado dentro de la carpeta
 	 * "data".

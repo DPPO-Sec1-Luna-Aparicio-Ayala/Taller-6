@@ -210,6 +210,21 @@ public class InterfazLibreria extends JFrame
 		panelLibros.actualizarLibros(libros);
 		mostrarLibro(libros.get(0));
 	}
+	
+	public void renombrarCat() {
+		try {
+			String catACambiar = JOptionPane.showInputDialog(this, "Escriba el nombre de la categoría que desea cambiar", "Categoría a modificar");	
+			String catNueva = JOptionPane.showInputDialog(this, "Escriba el nombre nuevo de la categoría", "Nueva Categoría");
+			libreria.renombrarCategoría(catACambiar, catNueva);
+			panelCategorias.actualizarCategorias(libreria.darCategorias());
+			cambiarCategoria(new Categoria(catNueva, false));
+		}
+		catch(Exception e){
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error de categorización",
+					JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Cambia el libro para el cual se debe mostrar la informaciÃ³n en el panel
@@ -230,13 +245,13 @@ public class InterfazLibreria extends JFrame
 	 */
 	public void buscarLibro()
 	{
-		String titulo = JOptionPane.showInputDialog(this, "Escriba el tÃ­tulo del libro que busca", "titulo");
+		String titulo = JOptionPane.showInputDialog(this, "Escriba el título del libro que busca", "titulo");
 		if (titulo != null)
 		{
 			Libro libro = libreria.buscarLibro(titulo);
 			if (libro == null)
 			{
-				JOptionPane.showMessageDialog(this, "No se encontrÃ³ un libro con ese tÃ­tulo", "No hay libro",
+				JOptionPane.showMessageDialog(this, "No se encontró un libro con ese título", "No hay libro",
 						JOptionPane.INFORMATION_MESSAGE);
 			}
 			else
