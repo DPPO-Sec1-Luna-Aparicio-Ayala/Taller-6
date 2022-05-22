@@ -221,23 +221,26 @@ public class Libreria
 			
 			throw new Exception ("Hay una categoría que ya tiene ese nombre");
 		}
-		if(buscarCategoria(nomCatActual)==null) {
+		else if(buscarCategoria(nomCatActual)==null) {
 			throw new Exception ("La categoría que desea cambiar no existe");
 		}
-		Categoria laNuevaCategoria = null;
+		Categoria nueva = null;
 		if(buscarCategoria(nomCatActual)!=null) {
 			Categoria actual = buscarCategoria(nomCatActual);
+			nueva = new Categoria(nomCatNueva, false);
 			if (buscarCategoria(nomCatNueva)==null) {
 				categorias.remove(actual);
-				categorias.add(new Categoria(nomCatNueva, false));
-				for (Libro libro:catalogo) {
+				categorias.add(nueva);
+				for (Libro libro : catalogo) {
 					if(libro.darCategoria().equals(actual)){
-						libro.setCategoria(new Categoria(nomCatNueva, false));
-					}
+						libro.setCategoria(nueva);
+						nueva.agregarLibro(libro);
+						actualizarLibro(buscarIndexLibro(libro), libro);}
 				}
+				categorias.set(categorias.indexOf(nueva),nueva);
 			}
 		}
-		return laNuevaCategoria;
+		return nueva;
 	}
 	
 	/**
@@ -270,6 +273,7 @@ public class Libreria
 		{
 			if (categorias.get(i).darNombre().equals(nombreCategoria))
 			{
+				System.out.println(categorias.get(i).darNombre());
 				encontreCategoria = true;
 				seleccionados.addAll(categorias.get(i).darLibros());
 			}
@@ -297,6 +301,15 @@ public class Libreria
 		}
 
 		return libroBuscado;
+	}
+	
+	public Integer buscarIndexLibro(Libro aBuscar) {
+		Integer index = catalogo.indexOf(aBuscar);
+		return index;
+	}
+	
+	public void actualizarLibro(Integer index, Libro actualizado) {
+		catalogo.set(index, actualizado);
 	}
 
 	/**
